@@ -11,6 +11,21 @@ print(one_hot_encode('ACGU'))
 print(len(one_hot_encode('ACGU')))
 
 
+
+df_test['one_hot_encoded_seqs']=[one_hot_encode(seq) for seq in df_test.Sequence]
+X_test_hidden = list(df_test['one_hot_encoded_seqs'])  # Assuming you want to use the sequence as input
+y_test_hidden = list(df_test['Value'])
+
+# Make predictions on the test set
+y_pred_hidden = model.predict(X_test_hidden)
+
+
+
+# Evaluate the model (example: Pearson Correlation)
+corr = pearsonr(y_test_hidden, y_pred_hidden)
+print("Pearson corr:", corr)
+
+
 import seaborn as sns
 dna_positions=[]
 importance_scores=[]
